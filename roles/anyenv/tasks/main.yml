@@ -1,0 +1,14 @@
+- name: clone anyenv
+  git: 
+    repo: https://github.com/riywo/anyenv.git
+    dest: ~/.anyenv
+
+- name: append enviroment variable
+  shell: |
+    echo 'export PATH="$HOME/.anyenv/bin:$PATH"' >> ~/.bash_profile
+    echo 'eval "$(anyenv init -)"' >> ~/.bash_profile
+    exec $SHELL -l
+
+- name: install pyenv
+  shell: |
+    anyenv install pyenv
