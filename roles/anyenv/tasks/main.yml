@@ -1,14 +1,60 @@
+- name: check anyenv
+  stat:
+    path: ~/.anyenv
+  register: st
+
 - name: clone anyenv
   git: 
     repo: https://github.com/riywo/anyenv.git
     dest: ~/.anyenv
+  when: st.stat.isdir is not defined
 
 - name: append enviroment variable
-  shell: |
-    echo 'export PATH="$HOME/.anyenv/bin:$PATH"' >> ~/.bash_profile
-    echo 'eval "$(anyenv init -)"' >> ~/.bash_profile
-    exec $SHELL -l
+  lineinfile:
+    dest=~/.bash_profile
+    line={{ item }}
+  with_items:
+    - 'export PATH="$HOME/.anyenv/bin:$PATH"'
+    - 'eval "$(anyenv init -)"'
 
-- name: install pyenv
+- name: check python
+  stat:
+    path: ~/.anyenv/envs/pyenv/versions/{{ python_version }}
+  register: st
+
+- name : install pyenv & python
   shell: |
     anyenv install pyenv
+    pyenv install {{ python_version }}
+  when: st.stat.isdir is not defined
+
+- name: check ruby
+  stat:
+    path: ~/.anyenv/envs/rbenv/versions/{{ ruby_version }}
+  register: st
+
+- name: install rbenv & ruby
+  shell: |
+    anyenv install rbenv
+    rbenv install {{ ruby_version }}
+  when: st.stat.isdir is not defined
+
+- name: check go
+  stat:
+    path: ~/.anyenv/envs/goenv/versions/{{ go_version }}
+  register: st
+
+- name: install goenv & go
+  shell: |
+    anyenv install goenv
+    goenv install {{ go_version }}
+  when: st.stat.isdir is not defined
+
+- name: change python_version
+  shell: pyenv global {{ python_version }}
+
+- name: change ruby_version
+  shell: rbenv global {{ ruby_version }}
+
+- name: change go_version
+  shell: goenv global {{ go_version }}
