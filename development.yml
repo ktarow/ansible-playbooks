@@ -1,5 +1,5 @@
-- hosts: 127.0.0.1
-  connection: local
-  sudo: True
+- hosts: dev
+  become: true
+  remote_user: root
   roles:
     - anyenv

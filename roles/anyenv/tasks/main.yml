@@ -24,8 +24,8 @@
 
 - name : install pyenv & python
   shell: |
-    anyenv install pyenv
-    pyenv install {{ python_version }}
+    bash -lc 'anyenv install pyenv'
+    bash -lc 'pyenv install {{ python_version }}'
   when: st.stat.isdir is not defined
 
 - name: check ruby
@@ -35,8 +35,8 @@
 
 - name: install rbenv & ruby
   shell: |
-    anyenv install rbenv
-    rbenv install {{ ruby_version }}
+    bash -lc 'anyenv install rbenv'
+    bash -lc 'rbenv install {{ ruby_version }}'
   when: st.stat.isdir is not defined
 
 - name: check go
@@ -46,15 +46,15 @@
 
 - name: install goenv & go
   shell: |
-    anyenv install goenv
-    goenv install {{ go_version }}
+    bash -lc 'anyenv install goenv'
+    bash -lc 'goenv install {{ go_version }}'
   when: st.stat.isdir is not defined
 
 - name: change python_version
-  shell: pyenv global {{ python_version }}
+  shell: bash -lc 'pyenv global {{ python_version }}'
 
 - name: change ruby_version
-  shell: rbenv global {{ ruby_version }}
+  shell: bash -lc 'rbenv global {{ ruby_version }}'
 
 - name: change go_version
-  shell: goenv global {{ go_version }}
+  shell: bash -lc 'goenv global {{ go_version }}'
