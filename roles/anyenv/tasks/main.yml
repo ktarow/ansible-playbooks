@@ -25,14 +25,13 @@
 - name : install pyenv
   environment:
     PATH: "{{ ansible_env.HOME }}/.anyenv/bin:{{ ansible_env.PATH }}"
-  shell: |
-    anyenv install pyenv
+  shell: anyenv install pyenv
   when: st.stat.isdir is not defined
 
 - name: check python
   stat:
     path: ~/.anyenv/envs/pyenv/versions/{{ python_version }}
-  register: st.stat.isdir is not defined
+  register: st
 
 - name : install python
   environment:
@@ -48,8 +47,7 @@
 - name: install rbenv
   environment:
     PATH: "{{ ansible_env.HOME }}/.anyenv/bin:{{ ansible_env.PATH }}"
-  shell: |
-    anyenv install rbenv
+  shell: anyenv install rbenv
   when: st.stat.isdir is not defined
 
 - name: check ruby
@@ -71,8 +69,7 @@
 - name: install goenv
   environment:
     PATH: "{{ ansible_env.HOME }}/.anyenv/bin:{{ ansible_env.PATH }}"
-  shell: |
-    anyenv install goenv
+  shell: anyenv install goenv
   when: st.stat.isdir is not defined
 
 - name: check go
