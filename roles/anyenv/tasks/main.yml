@@ -17,15 +17,39 @@
     - 'export PATH="$HOME/.anyenv/bin:$PATH"'
     - 'eval "$(anyenv init -)"'
 
+- name: check pyevn
+  stat:
+    path: ~/.anyenv/envs/pyenv
+  register: st
+
+- name : install pyenv
+  environment:
+    PATH: "{{ ansible_env.HOME }}/.anyenv/bin:{{ ansible_env.PATH }}"
+  shell: |
+    anyenv install pyenv
+  when: st.stat.isdir is not defined
+
 - name: check python
   stat:
     path: ~/.anyenv/envs/pyenv/versions/{{ python_version }}
+  register: st.stat.isdir is not defined
+
+- name : install python
+  environment:
+    PATH: "{{ ansible_env.HOME }}/.anyenv/bin:{{ ansible_env.PATH }}"
+  shell: eval "$(anyenv init -)" && pyenv install {{ python_version }} && pyenv global {{ python_version }}
+  when: st.stat.isdir is not defined
+
+- name: check rbenv
+  stat:
+    path: ~/.anyenv/envs/rbenv
   register: st
 
-- name : install pyenv & python
+- name: install rbenv
+  environment:
+    PATH: "{{ ansible_env.HOME }}/.anyenv/bin:{{ ansible_env.PATH }}"
   shell: |
-    bash -lc 'anyenv install pyenv'
-    bash -lc 'pyenv install {{ python_version }}'
+    anyenv install rbenv
   when: st.stat.isdir is not defined
 
 - name: check ruby
@@ -33,10 +57,22 @@
     path: ~/.anyenv/envs/rbenv/versions/{{ ruby_version }}
   register: st
 
-- name: install rbenv & ruby
+- name : install ruby
+  environment:
+    PATH: "{{ ansible_env.HOME }}/.anyenv/bin:{{ ansible_env.PATH }}"
+  shell: eval "$(anyenv init -)" && rbenv install {{ ruby_version }} && rbenv global {{ ruby_version }}
+  when: st.stat.isdir is not defined
+
+- name: check goenv
+  stat:
+    path: ~/.anyenv/envs/goenv
+  register: st
+
+- name: install goenv
+  environment:
+    PATH: "{{ ansible_env.HOME }}/.anyenv/bin:{{ ansible_env.PATH }}"
   shell: |
-    bash -lc 'anyenv install rbenv'
-    bash -lc 'rbenv install {{ ruby_version }}'
+    anyenv install goenv
   when: st.stat.isdir is not defined
 
 - name: check go
@@ -44,17 +80,8 @@
     path: ~/.anyenv/envs/goenv/versions/{{ go_version }}
   register: st
 
-- name: install goenv & go
-  shell: |
-    bash -lc 'anyenv install goenv'
-    bash -lc 'goenv install {{ go_version }}'
+- name : install go
+  environment:
+    PATH: "{{ ansible_env.HOME }}/.anyenv/bin:{{ ansible_env.PATH }}"
+  shell: eval "$(anyenv init -)" && goenv install {{ go_version }} && goenv global {{ go_version }}
   when: st.stat.isdir is not defined
-
-- name: change python_version
-  shell: bash -lc 'pyenv global {{ python_version }}'
-
-- name: change ruby_version
-  shell: bash -lc 'rbenv global {{ ruby_version }}'
-
-- name: change go_version
-  shell: bash -lc 'goenv global {{ go_version }}'
