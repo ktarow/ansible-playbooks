@@ -1,13 +1,7 @@
-- name: check anyenv
-  stat:
-    path: ~/.anyenv
-  register: st
-
-- name: clone anyenv
+- name: install anyenv
   git: 
     repo: https://github.com/riywo/anyenv.git
     dest: ~/.anyenv
-  when: st.stat.isdir is not defined
 
 - name: append enviroment variable
   lineinfile:
@@ -17,68 +11,39 @@
     - 'export PATH="$HOME/.anyenv/bin:$PATH"'
     - 'eval "$(anyenv init -)"'
 
-- name: check pyevn
-  stat:
-    path: ~/.anyenv/envs/pyenv
-  register: st
-
-- name : install pyenv
+- name: initilize anyenv
   environment:
     PATH: "{{ ansible_env.HOME }}/.anyenv/bin:{{ ansible_env.PATH }}"
-  shell: anyenv install pyenv
-  when: st.stat.isdir is not defined
+  shell: eval "$(anyenv init -)"
 
-- name: check python
-  stat:
-    path: ~/.anyenv/envs/pyenv/versions/{{ python_version }}
-  register: st
-
-- name : install python
+- name: install envs
   environment:
     PATH: "{{ ansible_env.HOME }}/.anyenv/bin:{{ ansible_env.PATH }}"
-  shell: eval "$(anyenv init -)" && pyenv install {{ python_version }} && pyenv global {{ python_version }}
-  when: st.stat.isdir is not defined
-
-- name: check rbenv
-  stat:
-    path: ~/.anyenv/envs/rbenv
-  register: st
-
-- name: install rbenv
-  environment:
-    PATH: "{{ ansible_env.HOME }}/.anyenv/bin:{{ ansible_env.PATH }}"
-  shell: anyenv install rbenv
-  when: st.stat.isdir is not defined
-
-- name: check ruby
-  stat:
-    path: ~/.anyenv/envs/rbenv/versions/{{ ruby_version }}
-  register: st
-
-- name : install ruby
-  environment:
-    PATH: "{{ ansible_env.HOME }}/.anyenv/bin:{{ ansible_env.PATH }}"
-  shell: eval "$(anyenv init -)" && rbenv install {{ ruby_version }} && rbenv global {{ ruby_version }}
-  when: st.stat.isdir is not defined
-
-- name: check goenv
-  stat:
-    path: ~/.anyenv/envs/goenv
-  register: st
-
-- name: install goenv
-  environment:
-    PATH: "{{ ansible_env.HOME }}/.anyenv/bin:{{ ansible_env.PATH }}"
-  shell: anyenv install goenv
-  when: st.stat.isdir is not defined
-
-- name: check go
-  stat:
-    path: ~/.anyenv/envs/goenv/versions/{{ go_version }}
-  register: st
+  shell: >
+    anyenv install {{ item }}
+    creates={{ ansible_env.HOME }}/.anyenv/envs/{{ item }}
+  with_items:
+    - 'goenv'
+    - 'pyenv'
+    - 'rbenv'
 
 - name : install go
   environment:
     PATH: "{{ ansible_env.HOME }}/.anyenv/bin:{{ ansible_env.PATH }}"
-  shell: eval "$(anyenv init -)" && goenv install {{ go_version }} && goenv global {{ go_version }}
-  when: st.stat.isdir is not defined
+  shell: >
+    bash -lc 'goenv install {{ go_version }} && goenv global {{ go_version }}'
+    creates={{ ansible_env.HOME }}/.anyenv/envs/goenv/versions/{{ go_version }}
+
+- name : install python
+  environment:
+    PATH: "{{ ansible_env.HOME }}/.anyenv/bin:{{ ansible_env.PATH }}"
+  shell: >
+    bash -lc 'pyenv install {{ python_version }} && pyenv global {{ python_version }}'
+    creates={{ ansible_env.HOME }}/.anyenv/envs/pyenv/versions/{{ python_version }}
+
+- name : install ruby
+  environment:
+    PATH: "{{ ansible_env.HOME }}/.anyenv/bin:{{ ansible_env.PATH }}"
+  shell: >
+    bash -lc 'rbenv install {{ ruby_version }} && rbenv global {{ ruby_version }}'
+    creates={{ ansible_env.HOME }}/.anyenv/envs/versions/rbenv/{{ ruby_version }}
