@@ -2,6 +2,7 @@
   git: 
     repo: https://github.com/riywo/anyenv.git
     dest: ~/.anyenv
+    clone: no
 
 - name: append enviroment variable
   lineinfile:
@@ -28,22 +29,16 @@
     - 'rbenv'
 
 - name : install go
-  environment:
-    PATH: "{{ ansible_env.HOME }}/.anyenv/bin:{{ ansible_env.PATH }}"
   shell: >
     bash -lc 'goenv install {{ go_version }} && goenv global {{ go_version }}'
     creates={{ ansible_env.HOME }}/.anyenv/envs/goenv/versions/{{ go_version }}
 
 - name : install python
-  environment:
-    PATH: "{{ ansible_env.HOME }}/.anyenv/bin:{{ ansible_env.PATH }}"
   shell: >
     bash -lc 'pyenv install {{ python_version }} && pyenv global {{ python_version }}'
     creates={{ ansible_env.HOME }}/.anyenv/envs/pyenv/versions/{{ python_version }}
 
 - name : install ruby
-  environment:
-    PATH: "{{ ansible_env.HOME }}/.anyenv/bin:{{ ansible_env.PATH }}"
   shell: >
     bash -lc 'rbenv install {{ ruby_version }} && rbenv global {{ ruby_version }}'
-    creates={{ ansible_env.HOME }}/.anyenv/envs/versions/rbenv/{{ ruby_version }}
+    creates={{ ansible_env.HOME }}/.anyenv/envs/rbenv/versions/{{ ruby_version }}
