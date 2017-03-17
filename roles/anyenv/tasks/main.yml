@@ -2,7 +2,6 @@
   git: 
     repo: https://github.com/riywo/anyenv.git
     dest: ~/.anyenv
-    clone: no
 
 - name: append enviroment variable
   lineinfile:
