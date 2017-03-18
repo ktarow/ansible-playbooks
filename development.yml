@@ -1,5 +1,6 @@
 - hosts: development
   remote_user: root
   roles:
-    #- anyenv
+    - yum
+    - anyenv
     - redis

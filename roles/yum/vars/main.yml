@@ -1,0 +1,15 @@
+packages:
+  - '@Development tools'
+  - tmux
+  - ncurses-devel
+  - curl-devel
+  - expat-devel
+  - gettext-devel
+  - openssl-devel
+  - zlib-devel
+  - readline-devel
+  - perl-ExtUtils-MakeMaker
+  - znc
+  - lua
+  - lua-devel
+  - libselinux-python
