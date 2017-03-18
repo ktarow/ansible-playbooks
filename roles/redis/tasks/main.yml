@@ -1,0 +1,24 @@
+- name: regist stat
+  stat:
+    path: /opt/redis-{{ redis_version }}
+  register: st
+
+- name: get redis tarball
+  get_url:
+    url: http://download.redis.io/releases/redis-{{ redis_version }}.tar.gz
+    dest: /tmp
+    checksum: sha256:61b373c23d18e6cc752a69d5ab7f676c6216dc2853e46750a8c4ed791d68482c
+  when: st.stat.isdir is not defined
+
+- name: extract redis
+  unarchive:
+    src: /tmp/redis-{{ redis_version }}.tar.gz
+    dest: /opt
+    remote_src: yes
+  when: st.stat.isdir is not defined
+
+- name: build redis
+  make:
+    chdir: /opt/redis-{{ redis_version }}
+    target: install
+  when: st.stat.isdir is not defined
