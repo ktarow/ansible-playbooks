@@ -14,7 +14,9 @@
 - name: initilize anyenv
   environment:
     PATH: "{{ ansible_env.HOME }}/.anyenv/bin:{{ ansible_env.PATH }}"
-  shell: eval "$(anyenv init -)"
+  shell: >
+    eval "$(anyenv init -)"
+    creates={{ ansible_env.HOME }}/.anyenv/envs
 
 - name: install envs
   environment:
