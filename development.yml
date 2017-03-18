@@ -1,5 +1,4 @@
-- hosts: dev
-  become: true
+- hosts: development
   remote_user: root
   roles:
     - anyenv
