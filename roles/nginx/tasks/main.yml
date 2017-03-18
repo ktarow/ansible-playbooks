@@ -1,0 +1,11 @@
+- name: copy nginx.repo
+  copy:
+    src: nginx.repo
+    dest: /etc/yum.repos.d/nginx.repo
+    mode: 0644
+
+- name: install nginx
+  yum:
+    name: nginx
+    enablerepo: nginx
+    state: present
