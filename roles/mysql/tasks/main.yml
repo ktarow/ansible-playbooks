@@ -1,0 +1,9 @@
+- name: install rpm for mysql
+  yum:
+    name: https://dev.mysql.com/get/mysql57-community-release-el6-9.noarch.rpm
+    state: present
+
+- name: install package
+  yum:
+    name: mysql-community-server
+    enablerepo: mysql57-community

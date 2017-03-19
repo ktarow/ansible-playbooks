@@ -5,3 +5,4 @@
     - anyenv
     - redis
     - nginx
+    - mysql
