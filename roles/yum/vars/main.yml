@@ -13,3 +13,5 @@ packages:
   - lua
   - lua-devel
   - libselinux-python
+  - sqlite-devel
+  - bzip2-devel
