@@ -1,8 +1,9 @@
 - hosts: development
   remote_user: root
   roles:
-    - yum
-    - anyenv
-    - redis
-    - nginx
-    - mysql
+    - debug
+    #- yum
+    #- anyenv
+    #- redis
+    #- nginx
+    #- mysql
