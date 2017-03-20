@@ -2,8 +2,8 @@
   remote_user: root
   roles:
     - debug
-    #- yum
-    #- anyenv
-    #- redis
-    #- nginx
-    #- mysql
+    - yum
+    - anyenv
+    - redis
+    - nginx
+    - mysql
