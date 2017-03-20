@@ -1,7 +1,14 @@
-- name: install rpm for mysql
+- name: install rpm for mysql for CentOS6.x
   yum:
     name: https://dev.mysql.com/get/mysql57-community-release-el6-9.noarch.rpm
     state: present
+  when: ansible_distribution_version | match('^6\.[0-9]+')
+
+- name: install rpm for mysql for CentOS7.x
+  yum:
+    name: https://dev.mysql.com/get/mysql57-community-release-el7-9.noarch.rpm
+    state: present
+  when: ansible_distribution_version | match('^7\.[0-9]+')
 
 - name: install package
   yum:
