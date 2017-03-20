@@ -1,5 +1,15 @@
 - hosts: development
   remote_user: root
+  tasks:
+    - name: install dotfiles
+      git:
+        repo: https://github.com/ktarow/dotfiles.git
+        dest: ~/dotfiles
+        update: yes
+      notify: execute setup.sh
+  handlers:
+    - name: execute setup.sh
+      shell: ~/dotfiles/setup.sh
   roles:
     - yum
     - anyenv
