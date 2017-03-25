@@ -16,6 +16,7 @@
       shell: ~/dotfiles/setup.sh
   roles:
     - yum
+    - bash
     - anyenv
     - redis
     - nginx
