@@ -5,10 +5,18 @@
     mode: 0755
     checksum: 'sha256:499c10d259e02cd45e5d1e3d5e1f8fab2b93912d79b90950e15275f72c166611'
 
+- name: get git-completion
+  get_url:
+    url: https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash
+    dest: ~/.git-completion.bash
+    mode: 0755
+    checksum: 'sha256:e9e7a7094aee8e2dcb6c49b76396a00dcc99a33559bd055fb3be0c5291a4d8c9'
+
 - name: add .bashrc
   lineinfile:
     dest=~/.bashrc
     line={{ item }}
   with_items:
+    - source ~/.git-completion.bash
     - source ~/.git-prompt.sh
     - PS1='[\u@\h \W$(__git_ps1 " (%s)")]\$ '
