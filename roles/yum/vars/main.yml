@@ -16,3 +16,4 @@ packages:
   - sqlite-devel
   - bzip2-devel
   - tree
+  - expect
