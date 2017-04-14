@@ -1,0 +1,12 @@
+- name: install erlang rpm
+  yum:
+    name: https://packages.erlang-solutions.com/erlang-solutions-1.0-1.noarch.rpm
+    state: present
+
+- name: import asc
+  shell: rpm --import https://packages.erlang-solutions.com/rpm/erlang_solutions.asc
+
+- name: install erlang
+  yum:
+    name: erlang
+    state: present

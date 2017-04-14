@@ -21,3 +21,4 @@
     - redis
     - nginx
     - mysql
+    - rabbitmq

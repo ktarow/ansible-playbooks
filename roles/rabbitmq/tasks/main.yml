@@ -1,0 +1,11 @@
+- name: install rpm for rabbitmq for CentOS6.x
+  yum:
+    name: https://www.rabbitmq.com/releases/rabbitmq-server/v3.6.9/rabbitmq-server-3.6.9-1.el6.noarch.rpm
+    state: present
+  when: ansible_distribution_version | match('^6\.[0-9]+')
+
+- name: install rpm for rabbitmq for CentOS7.x
+  yum:
+    name: https://www.rabbitmq.com/releases/rabbitmq-server/v3.6.9/rabbitmq-server-3.6.9-1.el7.noarch.rpm
+    state: present
+  when: ansible_distribution_version | match('^7\.[0-9]+')
