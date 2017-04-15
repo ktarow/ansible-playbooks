@@ -10,7 +10,7 @@
     url: https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash
     dest: ~/.git-completion.bash
     mode: 0755
-    checksum: 'sha256:e9e7a7094aee8e2dcb6c49b76396a00dcc99a33559bd055fb3be0c5291a4d8c9'
+    checksum: 'sha256:9162537ed82f683a8083fec9491fd4446646e8171e3a593eb1e37f01a35f2c92.'
 
 - name: add .bashrc
   lineinfile:
