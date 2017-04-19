@@ -9,3 +9,9 @@
     name: https://www.rabbitmq.com/releases/rabbitmq-server/v3.6.9/rabbitmq-server-3.6.9-1.el7.noarch.rpm
     state: present
   when: ansible_distribution_version | match('^7\.[0-9]+')
+
+- name: clone tls-gen
+  git:
+    repo: https://github.com/michaelklishin/tls-gen.git
+    dest: /opt/tls-gen
+    update: yes
