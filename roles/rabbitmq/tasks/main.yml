@@ -15,3 +15,18 @@
     repo: https://github.com/michaelklishin/tls-gen.git
     dest: /opt/tls-gen
     update: yes
+
+- name: regist stat
+  stat:
+    path: /opt/tls-gen/basic/result
+  register: st
+
+- name: create Certificate
+  make:
+    chdir: /opt/tls-gen/basic
+    target: gen
+    params:
+      PASSWORD: 'test'
+  environment:
+    PATH: /root/.anyenv/envs/pyenv/shims:/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/root/bin
+  when: st.stat.isdir is not defined
