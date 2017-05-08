@@ -1,0 +1,25 @@
+- hosts: development
+  remote_user: vagrant
+  sudo: true
+  tasks:
+    - name: install dotfiles
+      git:
+        repo: https://github.com/ktarow/dotfiles.git
+        dest: ~/dotfiles
+        update: yes
+      notify: execute setup.sh
+    - name: add git config --global
+      shell: |
+        git config --global user.name ktarow
+        git config --global user.email ktarou569@gmail.com
+  handlers:
+    - name: execute setup.sh
+      shell: ~/dotfiles/setup.sh
+  roles:
+    - yum
+    - bash
+    - anyenv
+    - redis
+    - nginx
+    - mysql
+    - rabbitmq

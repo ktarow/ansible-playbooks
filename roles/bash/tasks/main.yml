@@ -3,14 +3,12 @@
     url: https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh
     dest: ~/.git-prompt.sh
     mode: 0755
-    checksum: 'sha256:499c10d259e02cd45e5d1e3d5e1f8fab2b93912d79b90950e15275f72c166611'
 
 - name: get git-completion
   get_url:
     url: https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash
     dest: ~/.git-completion.bash
     mode: 0755
-    checksum: 'sha256:9162537ed82f683a8083fec9491fd4446646e8171e3a593eb1e37f01a35f2c92.'
 
 - name: add .bashrc
   lineinfile:
