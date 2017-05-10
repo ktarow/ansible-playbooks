@@ -17,4 +17,4 @@
     echo "JAVA_HOME='/usr/java/latest'" >> ~/.bashrc
     echo "PATH='$PATH:$JAVA_HOME/bin'" >> ~/.bashrc
     echo "export PATH" >> ~/.bashrc
-  when: result.rc ==1
+  when: result.rc != 0
