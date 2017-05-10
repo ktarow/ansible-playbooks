@@ -15,12 +15,12 @@
   when: result.rc == 1
 
 - name: check JAVA_HOME
-  shell: "cat ~/.bash_profile | grep 'JAVA_HOME'"
+  shell: 'cat ~/.bash_profile | grep "JAVA_HOME"'
   register: result
 
 - name: append JAVA_HOME
   shell: |
     echo "JAVA_HOME='/usr/java/latest'" >> ~/.bash_profile
-    echo "PATH='$PATH:$JAVA_HOME/bin'" >> ~/.bash_profile[
+    echo "PATH='$PATH:$JAVA_HOME/bin'" >> ~/.bash_profile
     echo "export PATH" >> ~/.bash_profile
   when: result.rc == 1
