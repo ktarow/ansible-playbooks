@@ -28,6 +28,7 @@
     - 'goenv'
     - 'pyenv'
     - 'rbenv'
+    - 'ndenv'
 
 - name : install go
   shell: >
@@ -43,3 +44,8 @@
   shell: >
     bash -lc 'rbenv install {{ ruby_version }} && rbenv global {{ ruby_version }}'
     creates={{ ansible_env.HOME }}/.anyenv/envs/rbenv/versions/{{ ruby_version }}
+
+- name : install node
+  shell: >
+    bash -lc 'ndenv install {{ node_version }} && ndenv global {{ node_version }}'
+    creates={{ ansible_env.HOME }}/.anyenv/envs/ndenv/versions/{{ node_version }}
