@@ -1,12 +1,18 @@
+- name: check rpm for jdk
+  shell: 'rpm -qa | grep "jdk1.8.0_131*"'
+  register: result
+
 - name: get jdk
   get_url:
     url: http://download.oracle.com/otn-pub/java/jdk/8u131-b11/d54c1d3a095b4ff2b6607d096fa80163/jdk-8u131-linux-x64.rpm
     headers: "Cookie: oraclelicense=accept-securebackup-cookie"
     validate_certs: no
     dest: /tmp/jdk-8u131-linux-x64.rpm
+  when: reulst.rc == 1
 
 - name: install rpm for jdk
-  shell: rpm -U /tmp/jdk-8u131-linux-x64.rpm
+  shell: rpm -i /tmp/jdk-8u131-linux-x64.rpm
+  when: result.rc == 1
 
 - name: check JAVA_HOME
   shell: "cat ~/.bash_profile | grep 'JAVA_HOME'"
