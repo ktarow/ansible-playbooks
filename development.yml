@@ -22,3 +22,4 @@
     - nginx
     - mysql
     - rabbitmq
+    - elasticsearch
