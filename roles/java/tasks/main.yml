@@ -1,6 +1,7 @@
 - name: check rpm for jdk
   shell: 'rpm -qa | grep "jdk1.8.0_131*"'
   register: result
+  failed_when: False
 
 - name: get jdk
   get_url:
@@ -17,6 +18,7 @@
 - name: check JAVA_HOME
   shell: 'cat ~/.bash_profile | grep "JAVA_HOME"'
   register: result
+  failed_when: False
 
 - name: append JAVA_HOME
   shell: |
