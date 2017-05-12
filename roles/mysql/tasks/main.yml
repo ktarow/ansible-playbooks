@@ -12,5 +12,6 @@
 
 - name: install package
   yum:
-    name: mysql-community-server
+    name: "{{ item }}"
     enablerepo: mysql57-community
+  with_items: "{{ packages }}"
