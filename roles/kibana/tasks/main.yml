@@ -1,0 +1,4 @@
+- name: install kibana by rpm
+  yum:
+    name: https://artifacts.elastic.co/downloads/kibana/kibana-5.4.0-x86_64.rpm
+    state: present
